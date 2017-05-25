@@ -1,0 +1,1 @@
+<dir><a href="cerrarsesion.php">cerrar sesion</a></dir>
