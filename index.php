@@ -24,7 +24,7 @@ else if($_SESSION['director']){
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>PHP Login Form</title>
+<title>Intranet Colegio San francisco de Asis</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="css/bootstrap.css">

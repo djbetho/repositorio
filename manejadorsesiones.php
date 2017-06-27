@@ -1,6 +1,6 @@
 <?php 
 // Desactivar toda notificación de error
-error_reporting(0);
+
 
 //Recibimos las dos variables
 $usuario=$_POST["usuario"];
@@ -9,17 +9,18 @@ $password=$_POST["password"];
 /* Realizamos una consulta por cada tabla para buscar en que tabla se encuentra 
 el usuario que está intentando acceder */
 include 'bd.php';
- 
-$admin =  $mysqli->query("SELECT * FROM admin WHERE rut = '$usuario' AND password = $password");
-$profesor = $mysqli->query("SELECT * FROM profesor WHERE rut = '$usuario' AND password = $password");
-$director = $mysqli->query("SELECT * FROM director WHERE rut = '$usuario' AND password = $password");
- 
+
+$admin =  $mysqli->query("  SELECT *
+FROM usuarios
+WHERE rut = '".$usuario."' AND password = ".$password."; ");
+  
 /* Sabemos que en el caso que exista el usuario se encontrará en una de estas 
 tres tablas, por lo tanto se guardará en alguno de nuestras tres variables 
 que guardan nuestra consulta */
+ $fila = $admin->fetch_assoc();
  
 /* Ahora comprobamos que variable contiene al usuario*/
-if($admin->num_rows > 0) 
+if($fila['cargo'] == 3) 
 {
     /* Si entra en este if significa que el que intenta acceder es un alumno, 
     por lo tanto le creamos una sesión */
@@ -37,7 +38,7 @@ if($admin->num_rows > 0)
 }
  
 /* Ahora comprobamos si el que intenta acceder es un profesor */
- else if($profesor->num_rows > 0) 
+ else if($fila['cargo'] == 2) 
 {
     session_start();
 
@@ -51,7 +52,7 @@ if($admin->num_rows > 0)
 }
  
 //comprobamos si es un director el que intenta abrir la sesión
- else if($director->num_rows > 0) 
+ else if($fila['cargo'] == 1) 
 {
     session_start();
     $_SESSION['director']="$usuario";
